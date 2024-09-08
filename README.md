@@ -1,4 +1,5 @@
-👋🏼 Hey! My name is Poorva and I am a recent graduate of Stockton University’s Master's of Data Science & Strategic Analytics Program!
+## About Me
+👋🏼 Hey! My name is Poorva and I am a recent graduate of Stockton University’s Master's of Data Science & Strategic Analytics Program! My main interests are in Enviornmantal Science & Psychology.
 
 ## Overview
 📌 This repository showcases my projects, academic coursework, and other relevant experiences in the field of data science.
