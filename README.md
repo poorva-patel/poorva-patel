@@ -44,7 +44,7 @@
 - **Data Practicum**: Encompasses Web scraping, APIs, and databases. Includes database design, ETL (Extract, Transform, Load) processes, and tools for storing large datasets in a structured way.
 
 ## Skills
-- Data Analysis: Python (Pandas, NumPy), R, 
+- Data Analysis: Python, R
 - Machine Learning: Scikit-Learn, TensorFlow, Pytorch, XGBoost, NLP
 - Databases: SQL, PostgreSQL, pgAdmin
 - Tools: GitHub, Jupyter, Docker, Linux, APIs, 
