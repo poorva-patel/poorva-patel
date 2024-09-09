@@ -10,7 +10,7 @@
 - **Technologies Used**: R, RStudio, R Shiny
 
 ### [Project 2: Power & Proseperity ](https://poorvasprojects.shinyapps.io/Downloads/)
-**Description**: This project examined two distinct datasets to investigate the potential correlation between a nation's wealth and its energy consumption. Specifically, the relationship between the economic productivity of countries, measured in terms of Purchasing Power Parity (PPP), and their energy usage, quantified as kilograms of oil equivalent per capita, spanning from the 1950s to the 2010s. Shiny Dashboard was created for an interactive visual.
+**Description**: This project examined two distinct datasets to investigate the potential correlation between a nation's wealth and its energy consumption. Specifically, the relationship between the economic productivity of countries, measured in terms of Purchasing Power Parity (PPP), and their energy usage, quantified as kilograms of oil equivalent per capita, spanning from the 1950s to the 2010s. An interactive Shiny web application focusing on visualizing emissions versus income data across decades and regions. Users can select specific decades and filter by continent to explore how emissions per income unit have evolved over time. Additional widgets allow users to explore metrics such as total income or other country-specific data across the decades.
 - **Technologies Used**: R, RStudio, R Shiny
 
 ### Project 3: Ecometrics
