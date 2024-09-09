@@ -6,7 +6,7 @@
 
 ## Projects
 ### [Project 1: Monthly Stocks](https://poorvasprojects.shinyapps.io/monthlystocks/)
-**Description**: This dashboard allows users to see the amount of returns made by four major companies from 2014-2018.
+**Description**: This is a Shiny web application provides an interactive platform for visualizing monthly stock returns for various companies. Users can select companies  and filter by year to analyze trends in stock performance over time. The dashboard presents two key visualizations: a line chart showing total returns over time and a bar chart comparing returns by company. Users can reset filters to adjust their view, making it a flexible tool for stock performance analysis.
 - **Technologies Used**: R, RStudio, R Shiny
 
 ### [Project 2: Power & Proseperity ](https://poorvasprojects.shinyapps.io/Downloads/)
