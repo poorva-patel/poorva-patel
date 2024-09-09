@@ -1,0 +1,219 @@
+---
+title: "Seasonal Rhythms: Exploratory Analysis of Human Behavior"
+author: Poorva Patel
+Date: April 22,2024
+output: html_notebook
+---
+
+Abstract: Globally, criminal activity varies in variation, volume, and frequency throughout the year. The rhythm of the seasons appears to play a role in shaping human behavior, as evidenced by varying patterns of crime rates across different times of the year, also known as crime seasonality. Crime seasonality has been studied since the mid-nineteenth century as it is an important source for predictability of crimes. This exploratory data analysis (EDA) investigates the relationship between the four seasons and crime incidences, seeking to uncover patterns that could offer insights of human behavior. This project will use a combined crime dataset from New Jersey and Massachusetts from 2018-2021 with a focus on violent crime, property crime, and motor vehicular accidents as identifiers of human behavior. These include murder, rape, aggravated assault, motor vehicle accidents, and burglary. The results of the EDA will allow for understanding regarding the effects of seasonality on human behavior. Further understanding of crime seasonality serves as insight for law enforcement and policy makers to develop targeted strategies aimed at crime prevention and public safety enhancement, with the goal to improve community well-being.  
+         Keywords: Exploratory Data Analysis, Crime Seasonality, Human Behavior
+
+```{r}
+Load libraries
+library(dplyr)
+library(tidyverse)
+library(readr)
+library(ggplot2)
+library(lubridate)
+library(stringr)
+```
+
+```{r}
+#Read in cleaned dataset
+Behavior <- read.csv("seasonal.csv")
+```
+
+```{r}
+#Preview dataset
+glimpse(Behavior)
+
+#Look at Central Tendencies
+summary(Behavior)
+```
+```{r}
+#Create seasons by grouping months
+Behaviors <- Behavior %>%
+  mutate(Season = case_when(
+    Month %in% c("December", "January", "February") ~ "Winter",
+    Month %in% c("March", "April", "May") ~ "Spring",
+    Month %in% c("June", "July", "August") ~ "Summer",
+    Month %in% c("September", "October", "November") ~ "Autumn", 
+))
+```
+
+```{r}
+#Analyze which season has the highest incidents of Rape
+rape_season <- Behaviors %>%
+  group_by(Season) %>%
+  summarise(RapeIncidents = sum(rape_total, na.rm = TRUE)) %>%
+  arrange(desc(RapeIncidents))
+top_rape_season <- rape_season[1, ] 
+print(top_rape_season)
+
+###Bar graph for Rape
+ggplot(rape_season, aes(x = Season, y = RapeIncidents, fill = Season == "Summer")) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("FALSE" = "steelblue", "TRUE" = "darkorange3")) +
+  labs(
+    title = "Seasonal Incidents of Rape",
+    x = NULL,
+    y = "Number of Rapes"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5), # Center the title
+    panel.grid.major = element_blank(),     # Remove major grid lines
+    panel.grid.minor = element_blank(),     # Remove minor grid lines
+    legend.position = "none" ) + #take away key
+  geom_text(aes(label = RapeIncidents), vjust = -0.3, color = "white")
+
+```
+```{r}
+#Analyze which season has the highest incidents of crash incidents regarding Motor Vehicles
+just_crash_season <- Behaviors %>%
+  group_by(Season) %>%
+  summarise(JustCrashIncidents = sum(crash_total, na.rm = TRUE)) %>%
+  arrange(desc(JustCrashIncidents))
+top_just_crash_season <- just_crash_season[1, ] 
+
+print(top_just_crash_season)
+
+
+
+###Bar graph for Crashes
+ggplot(just_crash_season, aes(x = Season, y = JustCrashIncidents, fill = Season == "Autumn")) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("FALSE" = "steelblue", "TRUE" = "darkorange3")) +
+  labs(
+    title = "Seasonal Incidents of Crashes",
+    x = NULL,
+    y = "Number of Crashes"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5), 
+    panel.grid.major = element_blank(),    
+    panel.grid.minor = element_blank(),     
+    legend.position = "none" ) + 
+  geom_text(aes(label = JustCrashIncidents), vjust = -0.3, color = "white")
+```
+```{r}
+#Analyze which season has the highest incidents of Aggravated Assault
+assault_season <- Behaviors %>%
+  group_by(Season) %>%
+  summarise(AssaultIncidents = sum(aggravated_assault_total, na.rm = TRUE)) %>%
+  arrange(desc(AssaultIncidents))
+top_assault_season <- assault_season[1, ]
+print(top_assault_season)
+
+###Bar graph for Aggravated Assault
+ggplot(assault_season, aes(x = Season, y = AssaultIncidents, fill = Season == "Summer")) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("FALSE" = "steelblue", "TRUE" = "darkorange3")) +
+  labs(
+    title = "Seasonal Incidents of Aggravated Assaults",
+    x = NULL,
+    y = "Number of Aggravated Assaults"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid.major = element_blank(),     
+    panel.grid.minor = element_blank(),     
+    legend.position = "none" ) + 
+  geom_text(aes(label = AssaultIncidents), vjust = -0.3, color = "white")
+```
+```{r}
+#Analyze which season has the highest incidents of Murder
+murder_season <- Behaviors %>%
+  group_by(Season) %>%
+  summarise(MurderIncidents = sum(murder_total, na.rm = TRUE)) %>%
+  arrange(desc(MurderIncidents))
+top_murder_season <- murder_season[1, ]
+print(top_murder_season)
+
+
+###Bar graph for Murder
+ggplot(murder_season, aes(x = Season, y = MurderIncidents, fill = Season == "Summer")) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("FALSE" = "steelblue", "TRUE" = "darkorange3")) +
+  labs(
+    title = "Seasonal Incidents of Murder",
+    x = NULL,
+    y = "Number of Murders"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid.major = element_blank(),     
+    panel.grid.minor = element_blank(),     
+    legend.position = "none" ) + 
+  geom_text(aes(label = MurderIncidents), vjust = -0.3, color = "white")
+```
+```{r}
+#Analyze which season has the highest incidents of Burglary 
+burglary_season <- Behaviors %>%
+  group_by(Season) %>%
+  summarise(BurglaryIncidents = sum(burglary_total, na.rm = TRUE)) %>%
+  arrange(desc(BurglaryIncidents))
+top_burglary_season <- burglary_season[1, ]
+print(top_burglary_season)
+
+
+###Bar graph for Aggravated Assault
+ggplot(burglary_season, aes(x = Season, y = BurglaryIncidents, fill = Season == "Summer")) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("FALSE" = "steelblue", "TRUE" = "darkorange3" )) +
+  labs(
+    title = "Seasonal Incidents of Burglary",
+    x = NULL,
+    y = "Number of Aggravated Assaults"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    panel.grid.major = element_blank(),     
+    panel.grid.minor = element_blank(),     
+    legend.position = "none" ) + 
+  geom_text(aes(label = BurglaryIncidents), vjust = -0.3, color = "white")
+
+```
+```{r}
+#Creating dates for the incidents
+Behaviors %>%
+  select(Month, starts_with("rape"), starts_with("murder"), 
+         starts_with("burglary"), starts_with("crash"), starts_with("aggravated")) %>%
+  pivot_longer(cols = c(starts_with("rape"), starts_with("crash"), starts_with("murder"), 
+                        starts_with("burglary"), starts_with("aggravated")),
+               names_to = "Year",
+               values_to = "Count") %>%
+  mutate(Year = str_extract(Year, "\\d+"), 
+         Year = str_replace(Year, "_", ""), 
+         Date = mdy(paste(Month, "01", Year, sep = " ")))
+
+
+#Analyze which season has the highest crime incidents 
+Behavior_aggregated <- Behaviors %>%
+  group_by(Season) %>%
+  summarise(TotalIncidents = sum(crash_total, burglary_total, murder_total, rape_total, aggravated_assault_total, na.rm = TRUE)) %>%
+  ungroup() %>%
+  mutate(Season = factor(Season, levels = c("Winter", "Spring", "Summer", "Autumn")))
+
+
+####Make line graph to show overall trends
+ggplot(Behavior_aggregated, aes(x = Season, y = TotalIncidents, group = 1)) +
+  geom_line(color = "steelblue") +
+  geom_point(size = 3,color = "steelblue") +
+  labs(
+    title = "Trend of Crimes by Season",
+    x = NULL,
+    y = "Total Incidents"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5), 
+    panel.grid.major = element_blank(),     
+    panel.grid.minor = element_blank(),
+    axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(angle = 45, hjust = 1))
+```
