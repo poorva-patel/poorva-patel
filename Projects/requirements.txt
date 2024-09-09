@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pydantic
+nest_asyncio
+pandas
+scikit-learn==1.1.3
